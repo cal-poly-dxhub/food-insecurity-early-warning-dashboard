@@ -43,11 +43,11 @@ ensure their drivers are accessible with pyodbc before simply changing the value
 '''
 
 DB_DRIVER = "SQL Server"
-DB_PORT = "5439"
-DB_SERVER = 'food-insecurity-dashboard-data.cwkwbva5fmjk.us-west-2.rds.amazonaws.com'
+DB_PORT = # database port
+DB_SERVER = # database endpoint
 DB_DATABASE="Dashboard"
-DB_USER = "dashboard_user"
-DB_PASSWORD = "Z4>z9%+za),Vq4!J"
+DB_USER = # database username
+DB_PASSWORD = # database password
 
 
 # List of countries to be included in the dashboard
@@ -91,14 +91,15 @@ def connect_to_db():
     test_connection = pyodbc.connect(f'DRIVER={DB_DRIVER};PORT={DB_PORT};SERVER={DB_SERVER};UID={DB_USER};PWD={DB_PASSWORD};autocommit=False')
     test_cursor = test_connection.cursor()
     test_resp = test_cursor.execute("SELECT name FROM master.sys.databases;").fetchall()
-    databases = [name[0] for name in resp]
+    databases = [name[0] for name in test_resp]
+    test_connection.commit()
     if DB_DATABASE not in databases:
         test_cursor.execute(f"CREATE DATABASE {DB_DATABASE};")
         test_connection.commit()
     test_cursor.close()
     test_connection.close()
     
-    return pyodbc.connect(f'DRIVER={DRIVER};PORT={PORT};SERVER={SERVER};DATABASE={DATABASE};UID={USER};PWD={PASSWORD};autocommit=False')
+    return pyodbc.connect(f'DRIVER={DB_DRIVER};PORT={DB_PORT};SERVER={DB_SERVER};DATABASE={DB_DATABASE};UID={DB_USER};PWD={DB_PASSWORD};autocommit=False')
 
     
 def aggregate_and_upload_data(csv_paths, connection, cursor):
@@ -625,6 +626,92 @@ class FAO:
         ]
         for names in name_map:
             df.Area = df.Area.replace(names[0], names[1])
+
+
+    def source1(self):
+        ''' 
+        Source 1: FAO - Suite of Food Security Indicators - http://www.fao.org/faostat/en/#data/FS
+         
+        Yields the indicators -> labeled in csv as:
+        FAO Average dietary energy supply adequacy -> 'Average dietary energy supply adequacy (percent) (3-year average)'
+        FAO Prevalence of low birthweight (percent) -> 'Prevalence of low birthweight (percent)'
+        FAO Per capita food supply variability -> 'Per capita food supply variability (kcal/cap/day)'
+        FAO Share of dietary energy supply derived from cereals, roots, and tubers -> 'Share of dietary energy supply derived from cereals, roots and tubers (kcal/cap/day) (3-year average)'
+        FAO Average protein supply -> 'Average protein supply (g/cap/day) (3-year average)'
+        FAO Per capita food production variability -> 'Per capita food production variability (constant 2004-2006 thousand int\$ per capita)'
+        FAO Percentage of population using safely managed drinking water services -> 'Percentage of population using at least basic drinking water services (percent)'
+        FAO Percentage of children under 5 years affected by wasting (percent) -> 'Percentage of children under 5 years affected by wasting (percent)'
+        FAO Percentage of children under 5 years of age who are overweight (percent) -> 'Percentage of children under 5 years of age who are overweight (percent)'
+        FAO Percentage of children under 5 years of age who are stunted (percent) -> 'Percentage of children under 5 years of age who are stunted (percent)'
+        FAO Prevalence of anemia among women of reproductive age (15-49 years) -> 'Prevalence of anemia among women of reproductive age (15-49 years)'
+        FAO Prevalence of obesity in the adult population (18 years and older) -> 'Prevalence of obesity in the adult population (18 years and older)'
+        '''
+
+        indicators = ['Average dietary energy supply adequacy (percent) (3-year average)',
+                    'Prevalence of low birthweight (percent)',
+                    'Per capita food supply variability (kcal/cap/day)',
+                    'Share of dietary energy supply derived from cereals, roots and tubers (kcal/cap/day) (3-year average)',
+                    'Average protein supply (g/cap/day) (3-year average)',
+                    'Per capita food production variability (constant 2004-2006 thousand int$ per capita)',
+                    'Percentage of population using at least basic drinking water services (percent)',
+                    'Percentage of children under 5 years affected by wasting (percent)',
+                    'Percentage of children under 5 years of age who are overweight (percent)',
+                    'Percentage of children under 5 years of age who are stunted (percent)',
+                    'Prevalence of anemia among women of reproductive age (15-49 years)',
+                    'Prevalence of obesity in the adult population (18 years and older)']
+
+        # url to get bulk csv zip file. zip_path is how I save the zip file locally
+        url = 'http://fenixservices.fao.org/faostat/static/bulkdownloads/Food_Security_Data_E_Latin_America_and_the_Caribbean.zip'
+        zip_path = 'Food_Security_Data_E_Latin_America_and_the_Caribbean.zip'
+
+        # Name of bulk csv file in zip file and how I save it locally
+        csv_name = 'Food_Security_Data_E_Latin_America_and_the_Caribbean_NOFLAG.csv'
+
+        self.getCsvFromOnlineZip(url, zip_path, csv_name)
+
+
+        # #### Data alteration and filtering
+
+        # csv --> dataframe
+        FAO_df = pd.read_csv(csv_name)
+
+        # drop unnecessary columns, assuming the unit is included in the item description
+        FAO_df = FAO_df.drop(columns=["Area Code", "Item Code", "Element Code", "Element", "Unit"])
+
+        # restructure to have Area, Item, and Year define each row
+        FAO_df = FAO_df.melt(id_vars=["Area", "Item"], var_name="Year", value_name="Value")
+
+        # Dropping rows with null values
+        FAO_df = FAO_df.dropna(subset=["Value"])
+
+        # Reformatting the year. ex: Turns Y2000 into 2000 and Y20002002 into 2003
+        # Assumptions: Format is in Yxxxx or Yxxxxxxxx, where x could be any number
+        FAO_df.Year = FAO_df.Year.str.strip("Y")
+
+        year_list = FAO_df.Year.tolist()
+        for i in range(len(year_list)):
+            temp_year = year_list[i]
+            if len(temp_year) > 4:
+                year_list[i] = str(int(temp_year[4:])+1)
+        FAO_df.Year = year_list
+
+        FAO_df.Year = FAO_df.Year.astype(int)
+
+        # Reassigning region names to be consistent
+        self.faoRenameAreaNames(FAO_df)
+
+        # Filter dataframe to only include target countries (only removes Puerto Rico for Latin America dataset)
+        # NOTE: this must take place after region names are reassigned
+        FAO_df = FAO_df[FAO_df.Area.isin(countries)]
+
+        # Filter dataframe to only include target indicators
+        FAO_df = FAO_df[FAO_df.Item.isin(indicators)]
+
+        # Renaming indicators to include "FAO" for distintion when combining dataframes
+        FAO_df.Item = "FAO " + FAO_df.Item
+
+        # final: 
+        return FAO_df
 
 
     def source2(self):
