@@ -45,7 +45,7 @@ ensure their drivers are accessible with pyodbc before simply changing the value
 DB_DRIVER = "SQL Server"
 DB_PORT = # database port
 DB_SERVER = # database endpoint
-DB_DATABASE="Dashboard"
+DB_DATABASE= "Dashboard"
 DB_USER = # database username
 DB_PASSWORD = # database password
 

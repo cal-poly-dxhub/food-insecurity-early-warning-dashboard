@@ -16,13 +16,14 @@
 5. Publish dashboard to power BI server with on-premise data gateway
 
 
-#### Clone repository into an instance with python 3.8 and Power BI Desktop
+#### Clone repository into an instance with python 3.8 and Power BI Desktop:
 1. Open up the terminal and navigate to your target directory for the new project
 2. Clone the repo: “git clone https://github.com/cal-poly-dxhub/food-insecurity-early-warning-dashboard.git”
 3. Navigate into the repository folder and ensure all files we cloned
 
 
-#### Create Microsoft SQL Server in AWS RDS (other databases can be used if they are compatible with pyodbc, compatible with Power BI, and use microsoft SQL insert and create table syntax. In this case the DB_DRIVER argument and Power BI “Data source type” would be different):
+#### Create Microsoft SQL Server in AWS RDS:
+(other databases can be used if they are compatible with pyodbc, compatible with Power BI, and use microsoft SQL insert and create table syntax. In this case the DB_DRIVER argument and Power BI “Data source type” would be different)
 1. Sign into AWS Console with AWS account
 2. Navigate to Amazon RDS service page
 3. Click "Databases"
@@ -53,7 +54,7 @@
 8. Refresh the page until the database is created then note the endpoint ("db endpoint") and port (“db port”)
 
 
-#### Run data fetching and importing script with new database parameters
+#### Run data fetching and importing script with new database parameters:
 1. Within the cloned repository’s folder, open main.py in a text editor
 2. Alter the database constants to match the values given to you by the RDS
 	DB_DRIVER = "SQL Server" (if using Microsoft SQL Server)
@@ -69,7 +70,7 @@
     If data structure has changed: this would require investigation into the downloaded CSVs and hard-coded column names will need to be changed in main.py. 
 
 
-#### Importing data into local dashboard
+#### Importing data into local dashboard:
 1. Open up Power BI Desktop
 2. In Power BI, open Dash_AWS.pbix
 	(NOTE: Dash_Local is available to be opened by power BI too. Here, the data is cached from a previous version as a reference if the database schema is altered and importing from the database is not working correctly)
@@ -91,7 +92,7 @@
 18. Data should now be imported and all dashboard pages should be visible and populated. 
 
 
-#### Publish dashboard to power BI server with on-premise data gateway
+#### Publish dashboard to power BI server with on-premise data gateway:
 1. Navigate to powerbi.com and sign in with your Power BI account
 2. Ensure you have a workspace that you would like to upload the dashboard to. (By default you have “Your Workspace”, but this might not be the ideal location.)
 3. In Power BI, in the home tab, select “Publish”
