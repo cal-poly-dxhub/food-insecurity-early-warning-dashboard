@@ -6,7 +6,7 @@
 
 
 ## Files:
-- main.py: Fetches data from sources, formats it into a consistent schema, and them uploads it to a database
+- main.py: Fetches data from sources, formats it into a consistent schema, and then uploads it to a database
 - Data Injestion Record Sheet*.xlsx: Records of the indicators, their respective sources, and details to why they are or aren't in the dashboard
 - Dash_AWS.pbix: Dashboard to be opened by Power BI Desktop. Requires a database connection
 - Dash_Local.pbix: Dashboard to be opened by Power BI Desktop. Contains cached data without a database connection. Provided for a reference in case dashboard formatting in Dash_AWS.pbix is lost
@@ -21,7 +21,7 @@
 
 
 ## Main Steps For Reproduction:
-1. Clone repository into an instance with python 3.8 and Power BI Desktop
+1. Clone repository into an computer with python 3.8 and Power BI Desktop
 2. Create Microsoft SQL Server in AWS RDS
 3. Run data fetching and importing script with new database parameters
 4. Importing data into local dashboard
@@ -29,7 +29,7 @@
 
 ## Reproduction
 
-#### Clone repository into an instance with python 3.8 and Power BI Desktop:
+#### Clone repository into an computer with python 3.8 and Power BI Desktop:
 1. Open up the terminal and navigate to your target directory for the new project
 2. Clone the repo: “git clone https://github.com/cal-poly-dxhub/food-insecurity-early-warning-dashboard.git”
 3. Navigate into the repository folder and ensure all files we cloned
