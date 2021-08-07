@@ -1,4 +1,4 @@
-# Early Warning for Early Action Prototype Dashboard 
+# Early Warning for Early Action Dashboard Prototype
 #### Built for the World Bank with the purpose to better monitor global food insecurity
 #### Completed with Cal Poly's DxHub under the challenge: "Early Warning for Early Action (Evaluating Food Security Risk)"
 #### Initial data fetching and codebase provided by student team: David Ngo, Charlie Taylor,  Nathaniel Cinnamon, and Amy Ozee
