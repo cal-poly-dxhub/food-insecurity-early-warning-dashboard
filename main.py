@@ -20,7 +20,7 @@ import pyodbc
 DxHub project: Early action for Early Action (Evaluating Food Security Risk)
 
 This code fetches data from credible sources (currently just World Bank and FAO) of specific indicators
-that provide information about the levels of food insecurity for specific groups.
+that provide information about the levels of food insecurity for specific countries.
 
 Currently this code focuses on Latin America, but more countries can be included by adding them to the "countries"
 list below.
