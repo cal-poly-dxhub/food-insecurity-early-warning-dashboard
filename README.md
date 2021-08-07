@@ -5,12 +5,19 @@
 #### Full-scale code refactor and AWS automation completed by Braden Michelson
 
 
+## Files:
+- main.py: Fetches data from sources, formats it into a consistent schema, and them uploads it to a database
+- Data Injestion Record Sheet*.xlsx: Records of the indicators, their respective sources, and details to why they are or aren't in the dashboard
+- Dash_AWS.pbix: Dashboard to be opened by Power BI Desktop. Requires a database connection
+- Dash_Local.pbix: Dashboard to be opened by Power BI Desktop. Contains cached data without a database connection. Provided for a reference in case dashboard formatting in Dash_AWS.pbix is lost
+
+
 ## Requirements:
-1. Python 3.8 (previous versions can likely be used, just weren’t tested)
-2. AWS Account
-3. Power BI Account
-4. A computer with Power BI Desktop
-5. A computer willing to host an ongoing data gateway
+- Python 3.8 (previous versions can likely be used, just weren’t tested)
+- AWS Account
+- Power BI Account
+- A computer with Power BI Desktop
+- A computer willing to host an ongoing data gateway
 
 
 ## Main Steps For Reproduction:
@@ -50,7 +57,7 @@
    - Subnet group: VPC's subnet (See note below)
    - Public access: Yes
    - VPC security group: Choose existing (See note below)
-   - Existing VPC security groups: Choose one with inbound and outbound rules that are open to all the internet
+   - Existing VPC security groups: Choose existing (See note below)
    - Availability Zone: No preference
    - Database port: keep as default (1433) unless reasons otherwise ("db port")
    - Enable Microsoft SQL Server Windows authentication: No (unchecked)
