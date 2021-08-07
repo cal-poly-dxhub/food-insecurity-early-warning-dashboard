@@ -1,3 +1,7 @@
+# Prototype dashbord built for the World Bank with the purpose to better monitor global food insecurity
+# Completed under the Cal Poly's DxHub for the challenge: "Early Warning for Early Action (Evaluating Food Security Risk)"
+## Initial data fetching and codebase provided by student team: David Ngo, Charlie Taylor,  Nathaniel Cinnamon, and Amy Ozee
+## Complete code refactor and automation completed by Braden Michelson
 
 
 ## Requirements:
@@ -15,6 +19,7 @@
 4. Importing data into local dashboard
 5. Publish dashboard to power BI server with on-premise data gateway
 
+## Reproduction
 
 #### Clone repository into an instance with python 3.8 and Power BI Desktop:
 1. Open up the terminal and navigate to your target directory for the new project
@@ -23,7 +28,7 @@
 
 
 #### Create Microsoft SQL Server in AWS RDS:
-(other databases can be used if they are compatible with pyodbc, compatible with Power BI, and use microsoft SQL insert and create table syntax. In this case the DB_DRIVER argument and Power BI “Data source type” would be different)
+(other databases can be used if they are compatible with pyodbc, compatible with Power BI, and use microsoft SQL insert and create table syntax. In this case the DB_DRIVER argument and Power BI “Data source type” would need to change)
 1. Sign into AWS Console with AWS account
 2. Navigate to Amazon RDS service page
 3. Click "Databases"

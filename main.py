@@ -26,22 +26,7 @@ Currently this code focuses on Latin America, but more countries can be included
 list below.
 '''
 
-
-'''
-Can't get pyodbc imported into glue
-
-possible resources:
-https://docs.aws.amazon.com/glue/latest/dg/reduced-start-times-spark-etl-jobs.html
-https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-python-libraries.html
-https://docs.aws.amazon.com/glue/latest/dg/add-job-python.html
-'''
-
-
-'''
-In the prototype, a microsoft sql server was used through amazon RDS with pyodbc. If other database engines are used, then
-ensure their drivers are accessible with pyodbc before simply changing the values below.
-'''
-
+# Expecting a Microsoft SQL Server
 DB_DRIVER = "SQL Server"
 DB_PORT = # database port
 DB_SERVER = # database endpoint
