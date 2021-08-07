@@ -62,8 +62,8 @@ def main():
     WorldBank(csv_paths["World Bank"])
     FAO(csv_paths["FAO"])
     
-    # Assuming that all CSV files have the same schema (["Country", "Year", "Indicator", "Value"])
-    # This will 
+    # Assuming that all CSV files in csv_paths have the same schema (["Country", "Year", "Indicator", "Value"]),
+    # This command will aggregate the files and upload all the rows to the database
     aggregate_and_upload_data(list(csv_paths.values()), connection, cursor)
     
 
@@ -366,8 +366,7 @@ def aggregate_and_upload_data(csv_paths, connection, cursor):
 
 class WorldBank:
     '''
-    World Bank Data Injestion 
-    Most Code written by Braden Michelson, built off the work of Charlie Taylor and Nathaniel Cinnamon
+    World Bank Data Injestion
     
     Imports indicator data from World Bank API. A csv is created for each indicator and then aggregated into one csv file.
     '''
@@ -538,7 +537,7 @@ class WorldBank:
 class FAO:
     '''
     FAO Data Injestion 
-    Code written by Braden Michelson, built off the work of Charlie Taylor and Nathaniel Cinnamon
+
     Imports indicator data from FAO API. A dataframe is created for each source / api call and then aggregated into one csv file.
     '''
 
