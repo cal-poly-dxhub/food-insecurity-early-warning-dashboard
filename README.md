@@ -62,7 +62,7 @@
    - Database port: keep as default (1433) unless reasons otherwise ("db port")
    - Enable Microsoft SQL Server Windows authentication: No (unchecked)
    - In the larger Additional Configuration tab, automated backups are enabled by default to 7 days. If the data fetching script is run on a schedule it is suggested that you match that schedule here as to have backups of the last run in case the sources or endpoints change and cause errors
-   - NOTE: When it comes to access permissions within your chosen security group and the VPC there are two options:
+   - NOTE: When it comes to access permissions within your chosen security group and VPC there are two options:
      - Allow public access through the internet (not the most secure option) or
 	 - Allow the ip addresses of the computer using Power BI Desktop and the computer hosting the data gateway
 6. Click "Create Database" and then click on the database instance name
