@@ -35,26 +35,29 @@
 3. Click "Databases"
 4. Click "Create Database"
 5. Create a database with the options:
-	Choose a database creation method: Standard create
-	Engine options: Microsoft SQL Server
-	Edition: SQL Server Express Edition (other editions can be used, but this data currently will not exceed
-	Version: SQL Server 2019 15.00.4073.23.v1 was used, but the most recent will probably work
-	DB instance identifier: Unique name to reference later ("db instance name")
-	Master username: Username to log into database ("db username")
-	Master password: Password to log into database ("db password")
-	DB instance class: Burstable classes -> db.t3.small (not a large cpu is needed for this task at the moment)
-	Storage type: General Purpose (SSD)
-	Allocated storage: 20 (or the minimum)
-	Enable storage autoscaling: Not necessary at current stage but users choice, FAO and World Bank data are under 1 GiB
-	VPC: Your Project's VPC
-	Subnet group: VPC's subnet
-	Public access: Yes
-	VPC security group: Choose existing
-	Existing VPC security groups: Choose one with inbound and outbound rules that are open to all the internet
-	Availability Zone: No preference
-	Database port: keep as default (1433) unless reasons otherwise ("db port")
-	Enable Microsoft SQL Server Windows authentication: No (unchecked)
-	In the larger Additional Configuration tab, automated backups are enabled by default to 7 days. If the data fetching script is run on a schedule it is suggested that you match that schedule here as to have backups of the last run in case the sources or endpoints change and cause errors
+   - Choose a database creation method: Standard create
+   - Engine options: Microsoft SQL Server
+   - Edition: SQL Server Express Edition (other editions can be used, but this data currently will not exceed
+   - Version: SQL Server 2019 15.00.4073.23.v1 was used, but the most recent will probably work
+   - DB instance identifier: Unique name to reference later ("db instance name")
+   - Master username: Username to log into database ("db username")
+   - Master password: Password to log into database ("db password")
+   - DB instance class: Burstable classes -> db.t3.small (not a large cpu is needed for this task at the moment)
+   - Storage type: General Purpose (SSD)
+   - Allocated storage: 20 (or the minimum)
+   - Enable storage autoscaling: Not necessary at current stage but users choice, FAO and World Bank data are under 1 GiB
+   - VPC: Your Project's VPC (See note below)
+   - Subnet group: VPC's subnet (See note below)
+   - Public access: Yes
+   - VPC security group: Choose existing (See note below)
+   - Existing VPC security groups: Choose one with inbound and outbound rules that are open to all the internet
+   - Availability Zone: No preference
+   - Database port: keep as default (1433) unless reasons otherwise ("db port")
+   - Enable Microsoft SQL Server Windows authentication: No (unchecked)
+   - In the larger Additional Configuration tab, automated backups are enabled by default to 7 days. If the data fetching script is run on a schedule it is suggested that you match that schedule here as to have backups of the last run in case the sources or endpoints change and cause errors
+   - NOTE: When it comes to access permissions within your chosen security group and the VPC there are two options:
+     - Allow public access through the internet (not the most secure option) or
+	 - Allow the ip addresses of the computer using Power BI Desktop and the computer hosting the data gateway
 6. Click "Create Database" and then click on the database instance name
 7. Go to database's Connectivity & security tab
 8. Refresh the page until the database is created then note the endpoint ("db endpoint") and port (“db port”)
