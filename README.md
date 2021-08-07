@@ -73,23 +73,23 @@
 #### Run data fetching and importing script with new database parameters:
 1. Within the cloned repository’s folder, open main.py in a text editor
 2. Alter the database constants to match the values given to you by the RDS
-	DB_DRIVER = "SQL Server" (if using Microsoft SQL Server)
-	DB_PORT = db port
-	DB_SERVER = db endpoint
-	DB_DATABASE = "Dashboard"
-	DB_USER = db username
-	DB_PASSWORD = db password
+   - DB_DRIVER = "SQL Server" (if using Microsoft SQL Server)
+   - DB_PORT = db port
+   - DB_SERVER = db endpoint
+   - DB_DATABASE = "Dashboard"
+   - DB_USER = db username
+   - DB_PASSWORD = db password
 3. Save main.py
 4. Within the terminal pointing at  the cloned repository’s folder run the command: “python main.py”
 5. An output of “uploads complete” means all the data is now in the database. If an exception is raised, it is likely due to altered endpoints or data structure from the sources. 
-    If the endpoints have changed: The hardcoded endpoints can be used to download the CSV files. If the downloads do not work, the endpoint likely does not work. Steps are provided in main.py for each source in order to reproduce the api call 
-    If data structure has changed: this would require investigation into the downloaded CSVs and hard-coded column names will need to be changed in main.py. 
+   - If the endpoints have changed: The hardcoded endpoints can be used to download the CSV files. If the downloads do not work, the endpoint likely does not work. Steps are provided in main.py for each source in order to reproduce the api call 
+   - If data structure has changed: this would require investigation into the downloaded CSVs and hard-coded column names will need to be changed in main.py. 
 
 
 #### Importing data into local dashboard:
 1. Open up Power BI Desktop
 2. In Power BI, open Dash_AWS.pbix
-	(NOTE: Dash_Local is available to be opened by power BI too. Here, the data is cached from a previous version as a reference if the database schema is altered and importing from the database is not working correctly)
+   - (NOTE: Dash_Local is available to be opened by power BI too. Here, the data is cached from a previous version as a reference if the database schema is altered and importing from the database is not working correctly)
 3. Wait until the “Cannot load model” or a similar screen comes up and close it as this is expected.
 4. In the Home tab, select “Transform data”
 5. The in query editor, select “Data source settings”
