@@ -1,8 +1,8 @@
 # Early Warning for Early Action Prototype dashboard 
 #### Built for the World Bank with the purpose to better monitor global food insecurity
-#### Completed under the Cal Poly's DxHub for the challenge: "Early Warning for Early Action (Evaluating Food Security Risk)"
+#### Completed with Cal Poly's DxHub under the challenge: "Early Warning for Early Action (Evaluating Food Security Risk)"
 #### Initial data fetching and codebase provided by student team: David Ngo, Charlie Taylor,  Nathaniel Cinnamon, and Amy Ozee
-#### Full-scale code refactor AWS automation completed by Braden Michelson
+#### Full-scale code refactor and AWS automation completed by Braden Michelson
 
 
 ## Requirements:
